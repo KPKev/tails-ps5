@@ -2,6 +2,8 @@
 
 This page separates what was **measured** from what is only a source association. The v0.1.0 boot files are preserved test artifacts; this repository does not claim a clean, bit-for-bit reproducible build.
 
+Licensing: the Linux kernel and its patch remain under their upstream licenses, primarily [GPL-2.0](../LICENSES/GPL-2.0.txt); the loader remains under [GPL-3.0](../LICENSES/GPL-3.0.txt). Tails and its included packages have their own licenses. The root MIT license covers only this repository's original documentation and glue, not those third-party works.
+
 | File | Tested SHA-256 | Origin |
 |---|---|---|
 | `ps5-linux-loader.elf` | `419b393fcec1fd9fc43210dbfb2b1b7e2c5bf1bea384738705fd313ff599b333` | Exact digest and size match [Sonic's v13.60 release](https://github.com/soniciso1/ps5-linux-loader/releases/tag/v13.60), 205,592 bytes. That release tag points to [source commit `01c29ea`](https://github.com/soniciso1/ps5-linux-loader/tree/01c29eaedf8a5ec435033cc8e0f62c888e1e8a39). Source-to-binary reproducibility was **not** shown. |
