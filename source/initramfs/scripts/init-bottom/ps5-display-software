@@ -1,0 +1,14 @@
+#!/bin/sh
+set -eu
+test -n "${rootmnt:-}"
+test -d "$rootmnt/usr/lib/systemd/system"
+test -d "$rootmnt/usr/lib/systemd/user"
+system="$rootmnt/etc/systemd/system/gdm.service.d"
+user="$rootmnt/etc/systemd/user/org.gnome.Shell@wayland.service.d"
+mkdir -p "$system" "$user"
+for dir in "$system" "$user"; do
+    test ! -e "$dir/90-ps5-software-rendering.conf"
+done
+printf '%s\n' '[Service]' 'Environment=LIBGL_ALWAYS_SOFTWARE=true' 'Environment=GALLIUM_DRIVER=llvmpipe' 'Environment=GBM_ALWAYS_SOFTWARE=1' 'Environment=GSK_RENDERER=cairo' > "$system/90-ps5-software-rendering.conf"
+printf '%s\n' '[Service]' 'Environment=GALLIUM_DRIVER=llvmpipe' 'Environment=GBM_ALWAYS_SOFTWARE=1' 'Environment=GSK_RENDERER=cairo' > "$user/90-ps5-software-rendering.conf"
+chmod 0644 "$system/90-ps5-software-rendering.conf" "$user/90-ps5-software-rendering.conf"

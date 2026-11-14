@@ -1,0 +1,12 @@
+[Unit]
+Description=PS5 Tails post-login graphics diagnostic (writes to live USB)
+After=systemd-user-sessions.service
+ConditionKernelCommandLine=ps5_graphics_diagnostic=1
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh /usr/local/libexec/ps5-graphics-wait-and-collect
+TimeoutStartSec=5400
+
+[Install]
+WantedBy=multi-user.target

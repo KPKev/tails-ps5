@@ -1,0 +1,20 @@
+#!/bin/sh
+set -eu
+case " $(cat /proc/cmdline) " in *' ps5_graphics_diagnostic=1 '*) ;; *) exit 0 ;; esac
+test -n "${rootmnt:-}"
+test -d "$rootmnt/etc/systemd/system"
+mkdir -p "$rootmnt/usr/local/libexec" "$rootmnt/etc/systemd/system/multi-user.target.wants"
+test ! -e "$rootmnt/usr/local/libexec/ps5-graphics-diagnostic"
+test ! -e "$rootmnt/usr/local/libexec/ps5-graphics-wait-and-collect"
+test ! -e "$rootmnt/usr/local/libexec/ps5-shell-watch"
+test ! -e "$rootmnt/etc/systemd/system/ps5-graphics-diagnostic.service"
+test ! -e "$rootmnt/etc/systemd/system/multi-user.target.wants/ps5-graphics-diagnostic.service"
+cp /ps5-graphics-diagnostic/collect.sh "$rootmnt/usr/local/libexec/ps5-graphics-diagnostic"
+chmod 0755 "$rootmnt/usr/local/libexec/ps5-graphics-diagnostic"
+cp /ps5-graphics-diagnostic/watch.py "$rootmnt/usr/local/libexec/ps5-shell-watch"
+chmod 0755 "$rootmnt/usr/local/libexec/ps5-shell-watch"
+cp /ps5-graphics-diagnostic/wait-and-collect.sh "$rootmnt/usr/local/libexec/ps5-graphics-wait-and-collect"
+chmod 0755 "$rootmnt/usr/local/libexec/ps5-graphics-wait-and-collect"
+cp /ps5-graphics-diagnostic/ps5-graphics-diagnostic.service "$rootmnt/etc/systemd/system/ps5-graphics-diagnostic.service"
+chmod 0644 "$rootmnt/etc/systemd/system/ps5-graphics-diagnostic.service"
+ln -s ../ps5-graphics-diagnostic.service "$rootmnt/etc/systemd/system/multi-user.target.wants/ps5-graphics-diagnostic.service"

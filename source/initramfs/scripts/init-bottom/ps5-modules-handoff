@@ -1,0 +1,11 @@
+#!/bin/sh
+set -eu
+version=7.1.7-ps5-dbc02
+source_dir=/usr/lib/modules/$version
+[ "$(uname -r)" = "$version" ] || { echo "Unexpected kernel version" >&2; exit 1; }
+[ -d "$source_dir" ] || { echo "Missing PS5 modules in initramfs" >&2; exit 1; }
+[ -d "${rootmnt:?}/usr/lib/modules" ] || { echo "Missing live root modules directory" >&2; exit 1; }
+[ ! -e "$rootmnt/usr/lib/modules/$version" ] || { echo "PS5 modules already exist in live root" >&2; exit 1; }
+cp -a "$source_dir" "$rootmnt/usr/lib/modules/" || { echo "Could not copy PS5 modules to live root" >&2; exit 1; }
+[ -f "$rootmnt/usr/lib/modules/$version/modules.dep.bin" ] || { echo "PS5 module metadata missing after copy" >&2; exit 1; }
+echo "PS5 modules copied into live root"

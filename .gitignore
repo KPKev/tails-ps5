@@ -1,0 +1,9 @@
+release-assets/
+*.img
+*.elf
+*.squashfs
+*.iso
+*.log
+PS5-DIAG-*/
+cmdline.txt
+.DS_Store
