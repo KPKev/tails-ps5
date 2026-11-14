@@ -2,6 +2,8 @@
 
 An experimental way to start **Tails 7.17 on a PS5** that already has a working PS5 Linux loader. In our physical test on **PS5 firmware 13.60**, Tails reached the Welcome screen, then a usable desktop. The keyboard, mouse, Terminal, Ethernet, Tor Connection, and Tor Browser worked. Tor Browser loaded [Tor's connection-check page](https://check.torproject.org/); the owner also reported a successful desktop and Tor connection after a fresh restart.
 
+![Tails Welcome screen running on a PS5, cropped from the original television photograph](images/tails-welcome-ps5.png)
+
 > **Read this first:** This is an *unofficial modified Tails build*, not a release from the Tails team. It has **not** had a complete security or anonymity audit on PS5 hardware. Do not depend on it for sensitive activity. See [what we actually checked](docs/SECURITY.md). It is also not a one-click PS5 jailbreak: you need a compatible, already working Linux-loader setup.
 
 ## What this does, in plain English
